@@ -10,6 +10,40 @@ import customerData from '../data/customer-data';
 import HeroImage from '../svg/HeroImage';
 import SvgCharts from '../svg/SvgCharts';
 
+
+<!-- Include the Yoco SDK in your web page -->
+<script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
+
+<!-- Create a pay button that will open the popup-->
+<button id="checkout-button">Pay</button>
+
+<script>
+  var yoco = new window.YocoSDK({
+    publicKey: 'pk_test_d9d8241ewEVw3Mocd584',
+  });
+  var checkoutButton = document.querySelector('#checkout-button');
+  checkoutButton.addEventListener('click', function () {
+    yoco.showPopup({
+      amountInCents: 2799,
+      currency: 'ZAR',
+      name: 'Your Store or Product',
+      description: 'Awesome description',
+      callback: function (result) {
+        // This function returns a token that your server can use to capture a payment
+        if (result.error) {
+          const errorMessage = result.error.message;
+          alert("error occured: " + errorMessage);
+        } else {
+          alert("card successfully tokenised: " + result.id);
+        }
+        // In a real integration - you would now pass this chargeToken back to your
+        // server along with the order/basket that the customer has purchased.
+      }
+    })
+  });
+</script>
+
+
 const Index = () => (
   <Layout>
     <section className="pt-20 md:pt-40">
@@ -144,7 +178,10 @@ const Index = () => (
       <p className="mt-8">
         <Button size="xl">Get Started Now</Button>
       </p>
+      
+      
     </section>
+      
   </Layout>
 );
 
