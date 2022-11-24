@@ -17,31 +17,7 @@ import SvgCharts from '../svg/SvgCharts';
 <!-- Create a pay button that will open the popup-->
 <button id="checkout-button">Pay</button>
 
-<script>
-  var yoco = new window.YocoSDK({
-    publicKey: 'pk_test_d9d8241ewEVw3Mocd584',
-  });
-  var checkoutButton = document.querySelector('#checkout-button');
-  checkoutButton.addEventListener('click', function () {
-    yoco.showPopup({
-      amountInCents: 2799,
-      currency: 'ZAR',
-      name: 'Your Store or Product',
-      description: 'Awesome description',
-      callback: function (result) {
-        // This function returns a token that your server can use to capture a payment
-        if (result.error) {
-          const errorMessage = result.error.message;
-          alert("error occured: " + errorMessage);
-        } else {
-          alert("card successfully tokenised: " + result.id);
-        }
-        // In a real integration - you would now pass this chargeToken back to your
-        // server along with the order/basket that the customer has purchased.
-      }
-    })
-  });
-</script>
+
 
 
 const Index = () => (
@@ -157,6 +133,31 @@ const Index = () => (
           </div>
         </div>
       </div>
+<script>
+  var yoco = new window.YocoSDK({
+    publicKey: 'pk_test_d9d8241ewEVw3Mocd584',
+  });
+  var checkoutButton = document.querySelector('#checkout-button');
+  checkoutButton.addEventListener('click', function () {
+    yoco.showPopup({
+      amountInCents: 2799,
+      currency: 'ZAR',
+      name: 'Your Store or Product',
+      description: 'Awesome description',
+      callback: function (result) {
+        // This function returns a token that your server can use to capture a payment
+        if (result.error) {
+          const errorMessage = result.error.message;
+          alert("error occured: " + errorMessage);
+        } else {
+          alert("card successfully tokenised: " + result.id);
+        }
+        // In a real integration - you would now pass this chargeToken back to your
+        // server along with the order/basket that the customer has purchased.
+      }
+    })
+  });
+</script>
     </section>
     <section id="testimonials" className="py-20 lg:py-40">
       <div className="container mx-auto">
